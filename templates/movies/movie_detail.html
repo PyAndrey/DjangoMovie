@@ -56,7 +56,7 @@
                     <li style="list-style: none">
                         <span><b>Сборы в США:</b> ${{ movie.fees_in_usa }}</span></li>
                     <li style="list-style: none">
-                        <span><b>Сборы в мире:</b> ${{ movie.fess_in_world }}</span>
+                        <span><b>Сборы в мире:</b> ${{ movie.fees_in_world }}</span>
                     </li>
                     <li style="list-style: none">
                         <a href="#"><b>Рейтинг:</b>
@@ -107,7 +107,7 @@
             </h3>
             <p>
                 {% for image in movie.movieshots_set.all %}
-                    <img src="{{ image.image.url }}" class="img-movie-shots "
+                    <img src="{{ image.image.url }}" class="img-movie-shots"
                          alt="{{ image.description }}">
                 {% endfor %}
             </p>

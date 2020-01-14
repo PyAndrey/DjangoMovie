@@ -8,7 +8,7 @@ class Category(models.Model):
     """Категории"""
 
     name = models.CharField("Название", max_length=150)
-    descriptions = models.TextField("Описание")
+    description = models.TextField("Описание")
     url = models.SlugField(max_length=160, unique=True)
 
 
@@ -26,7 +26,7 @@ class Actor(models.Model):
 
     name = models.CharField("Имя", max_length=100)
     age = models.PositiveSmallIntegerField("Возраст", default=0)
-    descriptions = models.TextField("Описание")
+    description = models.TextField("Описание")
     image = models.ImageField("Изображение", upload_to="actors/", height_field=None, width_field=None, max_length=None)
 
 
@@ -43,7 +43,7 @@ class Genre(models.Model):
     """Жанры"""
 
     name = models.CharField("Имя", max_length=100)
-    descriptions = models.TextField("Описание")
+    description = models.TextField("Описание")
     url = models.SlugField(max_length=160, unique=True)
 
     class Meta:
@@ -59,7 +59,7 @@ class Movie(models.Model):
 
     title = models.CharField("Название", max_length=100)
     tagline = models.CharField("Слоган", max_length=100, default='')
-    descriptions = models.TextField("Описание")
+    description = models.TextField("Описание")
     poster = models.ImageField("Постер", upload_to="movies/", height_field=None, width_field=None, max_length=None)
     year = models.PositiveSmallIntegerField("Дата выхода", default=2019)
     country = models.CharField("Страна", max_length=30)
@@ -84,13 +84,16 @@ class Movie(models.Model):
     def get_absolute_url(self):
         return reverse('movie_detail', kwargs={'slug': self.url})
 
-class MoviesShots(models.Model):
+    def get_review(self):
+        return self.reviews_set.filter(parent__isnull=True)
+
+class MovieShots(models.Model):
 
     """Кадры из фильма"""
 
     title = models.CharField("Заголовок", max_length=100)
-    descriptions = models.TextField("Описание")
-    image = models.ImageField("Изображение", upload_to="movie_shots/", height_field=None, width_field=None, max_length=None)
+    description = models.TextField("Описание")
+    image = models.ImageField("Изображение", upload_to="movie_shots/")
     movie = models.ForeignKey(Movie, verbose_name="Фильм", on_delete=models.CASCADE)
 
     class Meta:

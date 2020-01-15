@@ -151,7 +151,7 @@ class Reviews(models.Model):
 
     """Отзывы"""
 
-    email = models.EmailField("Эмейл", max_length=254)
+    email = models.EmailField("EMAIL", max_length=254)
     name = models.CharField("Имя", max_length=100)
     text = models.TextField("Сообщение", max_length=5000)
     parent = models.ForeignKey(

@@ -30,12 +30,15 @@ class Actor(models.Model):
     image = models.ImageField("Изображение", upload_to="actors/",
                               height_field=None, width_field=None, max_length=None)
 
+    def __str__(self):
+        return self.name
+
+    def get_absolute_url(self):
+        return reverse("actor_detail", kwargs={"slug": self.name})
+
     class Meta:
         verbose_name = "Актёры и режиссеры"
         verbose_name_plural = "Актёры и режиссеры"
-
-    def __str__(self):
-        return self.name
 
 
 class Genre(models.Model):
